@@ -11,11 +11,12 @@ def get_price(url):
     page = requests.get(url, headers=HEADERS)
     print(page)
     soup = BeautifulSoup(page.content, 'html.parser')
-    product_title = soup.find(id='productTitle').get_text()
+    product_title = soup.find(id='productTitle').get_text().strip()
     print('Title - ', product_title)
-    product_price = soup.find('span', class_='a-size-medium a-color-price inlineBlock-display offer-price a-text-normal price3P').get_text()
+    #product_price = soup.find('span', class_='a-size-medium a-color-price inlineBlock-display offer-price a-text-normal price3P').get_text()[2:]
     #[2:10].replace(',','')
-    print(product_price)
+    product_price = soup.find('td', class_='a-span12').get_text()
+    print('Price - ', product_price)
 
 
 if __name__ == '__main__':
